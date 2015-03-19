@@ -2,41 +2,28 @@
  * Created by Martha on 18.03.15.
  */
 public class Dish {
-    private String name;
-    int quantity;
+    private int quantity;
+    private Recipe recipe;
 
-    public Dish(String name) {
-        this.name = name;
-        this.quantity = quantity;
+    public Dish(Recipe recipe) {
+        this.quantity = 1;
+        this.recipe = this.recipe.cloneForDish(recipe);
     }
 
-    public Recipe cloneForDish(String name, Recipe recipe, int quantity){
-        this.name = name;
-        this.quantity = quantity;
-        return new Recipe (recipe.getNameOfRecipe());
+    public void incrementQuantity(){
+        ++this.quantity;
     }
 
-    public boolean recipeCheck(Recipe recipe){
-        if (recipe.getIngredients().size() != 0){
-            return true;
-        }
-        return false;
+    @Override
+    public String toString(){
+        String description = "Dish name " + this.recipe.getNameOfRecipe() + "\t quantity " + this.quantity + "\n";
+        description = String.join("", description, recipe.toString());
+        return description;
     }
 
-    public boolean ingrdientQuantityCheck(Recipe recipe){
-        for (int i = 0; i < recipe.getIngredients().size(); i++) {
-            if(recipe.getIngredients().get(i).getQuantity()<)
-        }
-    }
+
 
     // region Setters and Getters
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public int getQuantity() {
         return quantity;
@@ -44,6 +31,14 @@ public class Dish {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public Recipe getRecipe() {
+        return recipe;
+    }
+
+    public void setRecipe(Recipe recipe) {
+        this.recipe = recipe;
     }
     // endregion
 }

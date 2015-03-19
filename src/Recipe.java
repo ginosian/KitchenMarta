@@ -12,34 +12,39 @@ public class Recipe {
         this.ingredients = new ArrayList<Ingredient>();
     }
 
-    public boolean containsIngredient(Ingredient ingredient){
-        for (int i = 0; i < this.ingredients.size(); i++) {
-            if (ingredients.get(i).getName().equals(ingredient.getName())){
-                return true;
-            }
+    @Override
+    public String toString(){
+        String description = "Name of recipe " + nameOfRecipe + "\tQuantity of ingredients " + ingredients.size();
+        for (int i = 0; i < ingredients.size(); i++) {
+            description = String.join("", description, i+1 + ". " + ingredients.get(i) + "\n");
         }
-        return false;
+        return description;
     }
 
-    public boolean addIngredient(Ingredient ingredient, double quantity){
-        if (ingredients.add(ingredient.cloneForRecipe(quantity))){
-            return true;
+    public boolean existanceCheckIngredientForRecipe(Ingredient ingredient){
+        if(ingredient == null){
+            return false;
         }
-       return false;
+        return true;
+    }
+    public boolean addIngredient(Ingredient ingredient, double quantity){
+        if(this.existanceCheckIngredientForRecipe(ingredient)){
+        return ingredients.add(ingredient.cloneForRecipe(quantity));
+        }
+        return false;
     }
     public boolean removeIngredient (Ingredient ingredient){
-        if(ingredients.remove(ingredient)){
-            return true;
+        if(this.existanceCheckIngredientForRecipe(ingredient)){
+        return ingredients.remove(ingredient);
         }
         return false;
     }
-
-    public boolean ingredientQuantityCheck(){
-        for (int i = 0; i < ingredients.size(); i++) {
-            if(this.getIngredients().get(i).getName().equals(i))
-        }
+    public Recipe cloneForDish (Recipe recipe){
+        return new Recipe(recipe.getNameOfRecipe());
     }
-
+    public void modifyRecipeName(String nameOfRecipe){
+        this.setNameOfRecipe(nameOfRecipe);
+    }
 
     // region Setters and Getters
     public String getNameOfRecipe() {
@@ -58,6 +63,6 @@ public class Recipe {
         this.ingredients = ingredients;
     }
     // endregion
-    sou
+
 
 }
