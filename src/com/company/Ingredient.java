@@ -1,3 +1,5 @@
+package com.company;
+
 /**
  * Created by Martha on 18.03.15.
  */

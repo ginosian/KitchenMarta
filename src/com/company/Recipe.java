@@ -1,3 +1,5 @@
+package com.company;
+
 import java.util.ArrayList;
 
 /**
@@ -21,6 +23,24 @@ public class Recipe {
         return description;
     }
 
+    public boolean ifIngredientExist(Ingredient ingredient){
+        for (int i = 0; i < ingredients.size(); i++) {
+            if(ingredients.get(i).getName() == ingredient.getName()){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Ingredient findIngredientExist(Ingredient ingredient){
+        for (int i = 0; i < ingredients.size(); i++) {
+            if(ingredients.get(i).getName() == ingredient.getName()){
+                return ingredients.get(i);
+            }
+        }
+        return null;
+    }
+
     public boolean existanceCheckIngredientForRecipe(Ingredient ingredient){
         if(ingredient == null){
             return false;
@@ -28,8 +48,12 @@ public class Recipe {
         return true;
     }
     public boolean addIngredient(Ingredient ingredient, double quantity){
-        if(this.existanceCheckIngredientForRecipe(ingredient)){
-        return ingredients.add(ingredient.cloneForRecipe(quantity));
+        if(this.existanceCheckIngredientForRecipe(ingredient)) {
+            if (ifIngredientExist(ingredient)) {
+                this.findIngredientExist(ingredient).setQuantity(quantity);
+            } else {
+                return ingredients.add(ingredient.cloneForRecipe(quantity));
+            }
         }
         return false;
     }
@@ -39,12 +63,19 @@ public class Recipe {
         }
         return false;
     }
-    public Recipe cloneForDish (Recipe recipe){
+    public Recipe cloneForDish(Recipe recipe){
         return new Recipe(recipe.getNameOfRecipe());
     }
     public void modifyRecipeName(String nameOfRecipe){
         this.setNameOfRecipe(nameOfRecipe);
     }
+
+    public void modifyRecipeIngredientQuantity(Ingredient ingredient, double quantity){
+        if(existanceCheckIngredientForRecipe(ingredient)) {
+            findIngredientExist(ingredient).setQuantity(quantity);
+        }
+    }
+
 
     // region Setters and Getters
     public String getNameOfRecipe() {

@@ -1,3 +1,5 @@
+package com.company;
+
 /**
  * Created by Martha on 18.03.15.
  */
@@ -16,7 +18,7 @@ public class Dish {
 
     @Override
     public String toString(){
-        String description = "Dish name " + this.recipe.getNameOfRecipe() + "\t quantity " + this.quantity + "\n";
+        String description = "com.company.Dish name " + this.recipe.getNameOfRecipe() + "\t quantity " + this.quantity + "\n";
         description = String.join("", description, recipe.toString());
         return description;
     }

@@ -1,3 +1,5 @@
+package com.company;
+
 import java.util.ArrayList;
 
 /**
@@ -71,7 +73,7 @@ public class Kitchen {
         return false;
     }
 
-    public Ingredient returnsContainingIngredientInKitchen(Ingredient ingredient){
+    public Ingredient returnsContainingIngredientInKitchen(Ingredient ingredient){ //TODO Change the argument type to String.
         if(this.existanceCheckIngredient(ingredient) && this.existanceCheckIngredientsSize() && this.containsIngredientInKitchen(ingredient)){
             for (int i = 0; i < ingredients.size(); i++) {
                 if(ingredients.get(i).getName().equals(ingredient.getName())){
@@ -84,13 +86,13 @@ public class Kitchen {
     public boolean removeIngredientFromKitchen(Ingredient ingredient){
         if(this.existanceCheckIngredient(ingredient) && this.existanceCheckIngredientsSize() && this.containsIngredientInKitchen(ingredient)){
             return this.ingredients.remove(ingredient);
-            }
+        }
         return false;
     }
 
     public boolean ingredientQuantityCheckForDish(Dish dish){
         if(this.existanceCheckIngredientsSize() && this.existanceCheckDish(dish)){
-            for (int i = 0; i < dish.getRecipe().getIngredients().size() ; i++) {
+            for (int i = 0; i < dish.getRecipe().getIngredients().size() ; i++) { //TODO REMOVE THIS FOR SISER!
                   return this.returnsContainingIngredientInKitchen(dish.getRecipe().getIngredients().get(i)).getQuantity()
                           >= dish.getRecipe().getIngredients().get(i).getQuantity();
             }
@@ -100,10 +102,10 @@ public class Kitchen {
     }
 
     public boolean ingredientQuantityDecrease(Ingredient ingredient){
-        if(this.existanceCheckIngredient(ingredient) && this.containsIngredientInKitchen(ingredient)){
-              this.returnsContainingIngredientInKitchen(ingredient).setQuantity(returnsContainingIngredientInKitchen(ingredient).getQuantity() - ingredient.getQuantity());
+        if (this.existanceCheckIngredient(ingredient) && this.containsIngredientInKitchen(ingredient)) {
+            this.returnsContainingIngredientInKitchen(ingredient).setQuantity(returnsContainingIngredientInKitchen(ingredient).getQuantity() - ingredient.getQuantity());
             return true;
-            }
+        }
         return false;
     }
 
@@ -115,22 +117,40 @@ public class Kitchen {
         return false;
     }
 
-    public boolean addDishToKitchen(Dish dish){
-        if(this.existanceCheckDish(dish) && this.ingredientQuantityCheckForDish(dish)){
-            if(dishs.add(dish)){
-                for (int i = 0; i < dish.getRecipe().getIngredients().size(); i++) {
-                    return this.ingredientQuantityDecrease(dish.getRecipe().getIngredients().get(i));
-                }
-            }
+    public boolean addDishToKitchen(Recipe recipe, int quantity){ //TODO add dish duplicate check functionality
+        if(existanceCheckRecipe(recipe)){
+            recipe.cloneForDish(recipe);
+            Dish dish = new Dish(recipe);
         }
         return false;
     }
 
-    public boolean addRecipeToKitchen(Recipe recipe){
-        if(this.existanceCheckRecipe()){
-            return true
+    public boolean addRecipeToKitchen(String name){
+        Recipe recipe = new Recipe(name);
+        return recipes.add(recipe);
+    }
+
+   public String printInfoIngredients(){
+       String info = "Ingredients info:\n";
+       for (int i = 0; i < ingredients.size(); i++) {
+           info = info + ingredients.get(i).toString();
+       } // TODO NOT BE SISER.
+       return info;
+   }
+
+    public void printInfoRecipes(){
+        for (int i = 0; i < recipes.size(); i++) {
+            recipes.get(i).toString();
         }
     }
+
+    public void printInfoDishs(){
+        for (int i = 0; i < dishs.size(); i++) {
+            dishs.get(i).toString();
+        }
+    }
+
+
     // region Setters and Getters
 
     public ArrayList<Ingredient> getIngredients() {
