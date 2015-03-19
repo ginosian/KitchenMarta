@@ -34,6 +34,12 @@ public class Recipe {
         return false;
     }
 
+    public boolean ingredientQuantityCheck(){
+        for (int i = 0; i < ingredients.size(); i++) {
+            if(this.getIngredients().get(i).getName().equals(i))
+        }
+    }
+
 
     // region Setters and Getters
     public String getNameOfRecipe() {
