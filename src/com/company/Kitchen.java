@@ -78,6 +78,7 @@ public class Kitchen {
         return false;
     }
 
+
     public Ingredient returnsContainingIngredientInKitchen(Ingredient ingredient){ //TODO Change the argument type to String.
         if(this.existanceCheckIngredient(ingredient) && this.existanceCheckIngredientsSize() && this.containsIngredientInKitchen(ingredient)){
             for (int i = 0; i < ingredients.size(); i++) {
@@ -130,15 +131,19 @@ public class Kitchen {
         return false;
     }
 
-    public boolean addRecipeToKitchen(String name){
+    public Recipe addRecipeToKitchen(String name){
         Recipe recipe = new Recipe(name);
-        return recipes.add(recipe);
+        recipes.add(recipe);
+        return recipe;
     }
 
+   public int returnTheIndexOfRecipeFromKitchen(Recipe recipe){
+      getRecipes().contains(recipe)
+   }
    public String printInfoIngredients(){
        String info = "Ingredients info:\n";
        for (int i = 0; i < ingredients.size(); i++) {
-           info = info + ingredients.get(i).toString() + "\n";
+           info = info + (i+1) + ". " + ingredients.get(i).toString() + "\n";
        } // TODO NOT BE SISER.
        return info;
    }
@@ -146,7 +151,7 @@ public class Kitchen {
     public String printInfoRecipes(){
         String info = "Recipess info:\n";
         for (int i = 0; i < recipes.size(); i++) {
-            info = info + recipes.get(i).toString() + "\n";
+            info = info + (i+1) + ". " + recipes.get(i).toString() + "\n";
         }
         return info;
     }
@@ -154,7 +159,7 @@ public class Kitchen {
     public String printInfoDishs(){
         String info = "Ready dishes info:\n";
         for (int i = 0; i < dishs.size(); i++) {
-            info = info + dishs.get(i).toString() + "\n";
+            info = info + (i+1) + ". " + dishs.get(i).toString() + "\n";
         }
         return info;
     }

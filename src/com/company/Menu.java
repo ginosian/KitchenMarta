@@ -39,12 +39,38 @@ public class Menu {
     }
 
     public boolean removeIngredientMenu2(){
+        System.out.println("Choose which ingredient to remove");
+        System.out.println(kitchen.printInfoIngredients());
+        int input = scanner.nextInt();
+            if(inputLimitsCheck(0, kitchen.getIngredients().size(), input - 1)){
+                if(kitchen.removeIngredientFromKitchen(kitchen.getIngredients().get(input-1))){
+                System.out.println("Ingredient is successfully removed");
+                return true;
+                }
+            }
+        System.out.println("Invalid input, ingredient was not removed");
         return false;
     }
 
     public boolean addRecipeMenu3(){
+        System.out.println("Enter recipe name");
+        String recipeName = scanner.next();
+        System.out.println("Choose ingredient for recipe or press 0 to exit");
+
+
+
+            do {
+
+                System.out.println(kitchen.printInfoIngredients());
+                kitchen.
+            }
+                while (scanner.nextInt() != 0);
+                return true;
+        }
         return false;
     }
+
+
 
     public boolean removeRecipeMenu4(){
         return false;
@@ -121,7 +147,12 @@ public class Menu {
         return true;
    }
 
-
+    public boolean inputLimitsCheck(int lowEnd, int highEnd, int input){
+        if (input < lowEnd || input > highEnd){
+            return false;
+        }
+        return true;
+    }
 
 
 
