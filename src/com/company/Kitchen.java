@@ -59,7 +59,12 @@ public class Kitchen {
     }
      public boolean addIngredientInKitchen(Ingredient ingredient){
          if(this.existanceCheckIngredient(ingredient)){
-            return ingredients.add(ingredient);
+             if(existanceCheckIngredientsSize() && containsIngredientInKitchen(ingredient)){
+                this.returnsContainingIngredientInKitchen(ingredient).setQuantity( this.returnsContainingIngredientInKitchen(ingredient).getQuantity() + ingredient.getQuantity());
+                 this.returnsContainingIngredientInKitchen(ingredient).setUnitPrice(ingredient.getUnitPrice());
+                 return true;
+             } else {return ingredients.add(ingredient);}
+
          }
          return false;
      }
@@ -133,21 +138,25 @@ public class Kitchen {
    public String printInfoIngredients(){
        String info = "Ingredients info:\n";
        for (int i = 0; i < ingredients.size(); i++) {
-           info = info + ingredients.get(i).toString();
+           info = info + ingredients.get(i).toString() + "\n";
        } // TODO NOT BE SISER.
        return info;
    }
 
-    public void printInfoRecipes(){
+    public String printInfoRecipes(){
+        String info = "Recipess info:\n";
         for (int i = 0; i < recipes.size(); i++) {
-            recipes.get(i).toString();
+            info = info + recipes.get(i).toString() + "\n";
         }
+        return info;
     }
 
-    public void printInfoDishs(){
+    public String printInfoDishs(){
+        String info = "Ready dishes info:\n";
         for (int i = 0; i < dishs.size(); i++) {
-            dishs.get(i).toString();
+            info = info + dishs.get(i).toString() + "\n";
         }
+        return info;
     }
 
 
