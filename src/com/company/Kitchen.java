@@ -72,7 +72,9 @@ public class Kitchen {
     public boolean containsIngredientInKitchen(Ingredient ingredient){
         if(this.existanceCheckIngredient(ingredient) && this.existanceCheckIngredientsSize()){
             for (int i = 0; i < ingredients.size(); i++) {
-                return ingredients.get(i).getName().equals(ingredient.getName());
+                if(ingredients.get(i).getName().equals(ingredient.getName())) {
+                    return true;
+                }
             }
         }
         return false;
@@ -114,6 +116,13 @@ public class Kitchen {
         }
         return false;
     }
+    public boolean ingredientQuantityDecreaseFromUser(Ingredient ingredient, double quantity){
+        if (this.existanceCheckIngredient(ingredient) && this.containsIngredientInKitchen(ingredient) && returnsContainingIngredientInKitchen(ingredient).getQuantity() <= ingredient.getQuantity()) {
+            this.returnsContainingIngredientInKitchen(ingredient).setQuantity(returnsContainingIngredientInKitchen(ingredient).getQuantity() - quantity);
+            return true;
+        }
+        return false;
+    }
 
     public boolean ingredientQuantityIncrease(Ingredient ingredient){
         if(this.existanceCheckIngredient(ingredient) && this.containsIngredientInKitchen(ingredient)){
@@ -123,10 +132,22 @@ public class Kitchen {
         return false;
     }
 
+    public boolean ingredientQuantityIncreaseFromUser(Ingredient ingredient, double quantity){
+        if(this.existanceCheckIngredient(ingredient) && this.containsIngredientInKitchen(ingredient) && returnsContainingIngredientInKitchen(ingredient).getQuantity() <= ingredient.getQuantity()){
+            this.returnsContainingIngredientInKitchen(ingredient).setQuantity(returnsContainingIngredientInKitchen(ingredient).getQuantity() + quantity);
+            return true;
+        }
+        return false;
+    }
+
     public boolean addDishToKitchen(Recipe recipe, int quantity){ //TODO add dish duplicate check functionality
         if(existanceCheckRecipe(recipe)){
-            recipe.cloneForDish(recipe);
-            Dish dish = new Dish(recipe);
+            Dish dish = new Dish(recipe, quantity);
+            dishs.add(dish);
+            for (int i = 0; i < recipe.getIngredients().size(); i++) {
+              ingredientQuantityDecrease(recipe.getIngredients().get(i));
+            }
+            return true;
         }
         return false;
     }
@@ -137,8 +158,15 @@ public class Kitchen {
         return recipe;
     }
 
+    public boolean removeRecipeFromKitchen(Recipe recipe){
+        if(existanceCheckRecipe(recipe) && existanceCheckRecipesSize()){
+            return recipes.remove(recipes.get(returnTheIndexOfRecipeFromKitchen(recipe)));
+        }
+        return false;
+    }
+
    public int returnTheIndexOfRecipeFromKitchen(Recipe recipe){
-      getRecipes().contains(recipe)
+       return getRecipes().indexOf(recipe);
    }
    public String printInfoIngredients(){
        String info = "Ingredients info:\n";
@@ -151,7 +179,7 @@ public class Kitchen {
     public String printInfoRecipes(){
         String info = "Recipess info:\n";
         for (int i = 0; i < recipes.size(); i++) {
-            info = info + (i+1) + ". " + recipes.get(i).toString() + "\n";
+            info = info + (i+1) + ". " + recipes.get(i).toString();
         }
         return info;
     }

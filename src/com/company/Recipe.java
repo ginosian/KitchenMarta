@@ -16,9 +16,10 @@ public class Recipe {
 
     @Override
     public String toString(){
-        String description = "Name of recipe " + nameOfRecipe + "\tQuantity of ingredients " + ingredients.size();
+        String description = "Name of recipe " + nameOfRecipe + "\tQuantity of ingredients " + ingredients.size() + "\n";
         for (int i = 0; i < ingredients.size(); i++) {
-            description = String.join("", description, i+1 + ". " + ingredients.get(i) + "\n");
+            description = String.join("", description, i+1 + ". " + ingredients.get(i).getName() + "\t" + "Quantity: " + ingredients.get(i).getQuantity()
+                    + "\t" + "Cost: " + (ingredients.get(i).getQuantity()*ingredients.get(i).getUnitPrice()) + "\n");
         }
         return description;
     }
@@ -63,8 +64,10 @@ public class Recipe {
         }
         return false;
     }
-    public Recipe cloneForDish(Recipe recipe){
-        return new Recipe(recipe.getNameOfRecipe());
+    public Recipe cloneForDish(){
+        Recipe recipeForDish =  new Recipe(this.getNameOfRecipe());
+        recipeForDish.setIngredients(getIngredients());
+        return recipeForDish;
     }
     public void modifyRecipeName(String nameOfRecipe){
         this.setNameOfRecipe(nameOfRecipe);

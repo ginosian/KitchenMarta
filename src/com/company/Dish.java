@@ -7,9 +7,9 @@ public class Dish {
     private int quantity;
     private Recipe recipe;
 
-    public Dish(Recipe recipe) {
-        this.quantity = 1;
-        this.recipe = this.recipe.cloneForDish(recipe);
+    public Dish(Recipe recipe, int quantity) {
+        this.quantity = quantity;
+        this.recipe = recipe.cloneForDish();
     }
 
     public void incrementQuantity(){
@@ -22,8 +22,6 @@ public class Dish {
         description = String.join("", description, recipe.toString());
         return description;
     }
-
-
 
     // region Setters and Getters
 
